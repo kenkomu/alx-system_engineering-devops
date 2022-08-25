@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# show attached ips
+
+ifconfig | grep "inet " | cut -d " " -f10
