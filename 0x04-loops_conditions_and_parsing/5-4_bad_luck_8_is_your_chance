@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+# 4th it will display "bad luck" in place of
+# 8th it will display "good luck" in place of
+counter=1
+while [ $counter -le 10 ]
+do
+    if [[ $counter -eq 4 ]];
+    then
+	echo "bad luck"
+    elif [[ $counter -eq 8 ]];
+    then
+        echo "good luck"
+    else
+        echo "Best School"
+    fi
+    (( counter++ ))
+done
