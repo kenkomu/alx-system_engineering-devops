@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# This script is displaying 100 first number
+# This script that displays the content of the file /etc/passwd.
 
 file="/etc/passwd"
 
