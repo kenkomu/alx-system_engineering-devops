@@ -1,7 +1,7 @@
 #create a file in /tmp.
 
 file { '/tmp/school':
-  ensure  => symlink,
+  ensure  => present,
   target  => /tmp/school,
   owner   => 'www-data',
   group   => 'www-data',
