@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 # Fix my server with this line
 #!/usr/bin/env bash
-sudo service apache2 status
-
-if [ "$?" -gt 0 ]; then
-	sudo service apache2 start;
-fi
+echo 'Hello Holberton' > /var/www/html/index.html
+sudo service apache2 start
