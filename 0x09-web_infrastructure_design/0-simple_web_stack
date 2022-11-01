@@ -1,0 +1,35 @@
+url: https://imgur.com/gallery/qqA8Ld8 
+1. A server is a computer with a dedicated hard drive, CPU, and RAM. The difference
+between a server and your computer is that a server provides support for other computers,
+whether it's for file storage, email, or online connections. A server can be of a certain
+type and offer just one service or it can offer all of the aforementioned services.
+
+2. A domain name, which is a text-based name for a webpage, is utilized by DNS to associate
+it with the correct IP address.
+
+3. www.foobar.com. The first portion, www, is a subdomain and the domain name itself is foobar.com,
+which follows after the dot. Foobar.com is used as a CNAME record with the value www, and DNS uses this
+information to determine the IP address of the website.
+
+4. Web servers store web server software as well as HTML, Java, CSS, and images in their hardware form. The
+software running on the web server decides how websites are accessed. This is accomplished with the aid of an
+HTTP server, which can supply a static webpage and comprehend URLs and HTTP requests.
+
+5. The business logic is handled by the application server. This indicates that it will alter the data to offer
+unique capabilities and create a user-interactive website. It serves as a link between the database and webserver.
+By retaining prior interactions, it lessens the complex interaction between the web server and the database, improving 
+administration and speed.
+
+5. A database is a method of organizing information storage such that it may be quickly accessed, updated, and used.
+
+6. The server communicates with the client via protocols like TCP/IP and HTTP by using the client's IP address.
+
+Infrastructure problems include: 
+1. It has SPOF. This may be the case with client hardware or software, a network connection, or just one server. 
+Since there is only one server, any hardware, software, or even data center faults could cause the entire system to fail.
+
+2. Users won't be able to use the services during downtime when it is updated because no other server can step in to take 
+its place, necessitating the shutdown of the entire system.
+
+3. It utilizes a single server that could get overburdened with receiving large amounts of traffic. This can result in a
+server crash. We don't have scalability because there isn't another server.
