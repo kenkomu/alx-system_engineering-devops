@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# Fixes the issue with the web server
-# DOCKER_CONT_ID=$(docker ps | grep 'holbertonschool/265-0' | cut -d ' ' -f1)
-# docker exec -i "$DOCKER_CONT_ID" \
-# 	/bin/bash -c "echo 'Hello Holberton' > /var/www/html/index.html"
-# docker exec -i "$DOCKER_CONT_ID" /bin/bash -c "sudo service apache2 start"
-echo 'Hello Holberton' > /var/www/html/index.html
-sudo service apache2 start
+#get Apache to run on the container and to return a page containing Hello Holberton when querying the root of it.
+#!/usr/bin/env bash
+
+sudo service apache2 status
+
+if [ "$?" -gt 0 ]; then
+	sudo service apache2 start;
+fi
