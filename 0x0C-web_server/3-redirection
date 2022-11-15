@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Configures a brand new Ubuntu machine to the redirection requirements
+apt-get update
+apt-get -y install nginx
+echo "Holberton School for the win!" > /var/www/html/index.nginx-debian.html
+
+CONFIGURED=$(grep -c "rewrite ^/redirect_me / permanent;" /etc/nginx/sites-enabled/default)
+
+if [ "$CONFIGURED" = 0 ]; then
+    sed -i '/listen \[::\]:80 default_server;/a \\n\trewrite ^/redirect_me / permanent;' /etc/nginx/sites-enabled/default
+fi
+
+service nginx restart
