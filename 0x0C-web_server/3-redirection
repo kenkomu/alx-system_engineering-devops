@@ -3,7 +3,6 @@
 apt-get update
 apt-get -y install nginx
 echo "Holberton School for the win!" > /var/www/html/index.nginx-debian.html
-
 CONFIGURED=$(grep -c "rewrite ^/redirect_me / permanent;" /etc/nginx/sites-enabled/default)
 
 if [ "$CONFIGURED" = 0 ]; then
