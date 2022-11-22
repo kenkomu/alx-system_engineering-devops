@@ -5,7 +5,7 @@
 
 """
 import requests
-import json 
+import json
 import sys
 
 
@@ -21,6 +21,7 @@ def is_valid_json(data) -> bool:
         return True
     except Exception:
         return False
+
 
 def get_employee_information(employee_id: int):
     """
@@ -43,13 +44,14 @@ def get_employee_information(employee_id: int):
     except Exception as exception:
         print(exception.args[0])
 
+
 def get_employee_tasks(employee_id):
     """
         get employee task list
     """
     try:
         response = requests.get(
-            url="{}/users/{}/todos".format(domain_name, employee_id))
+            url="{}/users/{}/todos".format(api_url, employee_id))
 
         if not is_valid_json(response):
             raise ValueError("Not a valid JSON")
@@ -63,6 +65,7 @@ def get_employee_tasks(employee_id):
 
     except Exception as exception:
         print(exception.args[0])
+
 
 def get_employee_completed_tasks(task_list: json):
     """
