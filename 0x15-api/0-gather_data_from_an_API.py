@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 """
-    using this REST API, for a given employee ID,
-    returns information about his/her TODO list progress.
-
+    that, using this REST API, for a given employee ID,
+    returns information about his/her TODO list progress
 """
-import requests
+
+
 import json
+import requests
 import sys
 
-
-api_url = "https://jsonplaceholder.typicode.com"
+domain_name = "https://jsonplaceholder.typicode.com"
 
 
 def is_valid_json(data) -> bool:
@@ -25,11 +25,11 @@ def is_valid_json(data) -> bool:
 
 def get_employee_information(employee_id: int):
     """
-        get employee information
+        get employee informations
     """
     try:
         response = requests.get(
-            url="{}/users/{}/".format(api_url, employee_id))
+            url="{}/users/{}/".format(domain_name, employee_id))
 
         if not is_valid_json(response):
             raise ValueError("Not a valid JSON")
@@ -37,7 +37,7 @@ def get_employee_information(employee_id: int):
         content = response.json()
 
         if len(content) == 0:
-            raise ValueError("No reult")
+            raise ValueError("No result")
 
         return content
 
@@ -51,7 +51,7 @@ def get_employee_tasks(employee_id):
     """
     try:
         response = requests.get(
-            url="{}/users/{}/todos".format(api_url, employee_id))
+            url="{}/users/{}/todos".format(domain_name, employee_id))
 
         if not is_valid_json(response):
             raise ValueError("Not a valid JSON")
