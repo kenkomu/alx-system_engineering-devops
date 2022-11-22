@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     emp_resp = requests.get(emp_url).json()
 
-    emp_name = emp_resp.get('name')
+    emp_name = emp_resp.get('EMPLOYEE_NAME')
 
     payload = {'userId': {argv[1]}}
     todo_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(
