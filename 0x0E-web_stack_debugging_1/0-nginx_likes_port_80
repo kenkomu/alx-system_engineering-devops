@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Solving bug of port connection to a Nginx
+sed -i 's/8080/80/' /etc/nginx/sites-enabled/default
+sed -i 's/ipv6only=on/ /' /etc/nginx/sites-enabled/default
+service nginx restart
