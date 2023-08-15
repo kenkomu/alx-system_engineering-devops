@@ -1,19 +1,39 @@
 #!/usr/bin/python3
-"""Exports to-do list information for a given employee ID to JSON format."""
-import json
+"""Request employee ID from API
+"""
+
+from json import dump
 import requests
-import sys
+from sys import argv
 
 if __name__ == "__main__":
-    user_id = sys.argv[1]
-    url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}".format(user_id)).json()
-    username = user.get("username")
-    todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    with open("{}.json".format(user_id), "w") as jsonfile:
-        json.dump({user_id: [{
-                "task": t.get("title"),
-                "completed": t.get("completed"),
-                "username": username
-            } for t in todos]}, jsonfile)
+    def make_request(resource, param=None):
+        """Retrieve user from API
+        """
+        url = 'https://jsonplaceholder.typicode.com/'
+        url += resource
+        if param:
+            url += ('?' + param[0] + '=' + param[1])
+
+        # make request
+        r = requests.get(url)
+
+        # extract json response
+        r = r.json()
+        return r
+
+    user = make_request('users', ('id', argv[1]))[0]
+    tasks = make_request('todos', ('userId', argv[1]))
+
+    # format before exporting
+    user_id = user['id']
+    export = {user_id: []}
+    for task in tasks:
+        export[user_id].append({'task': task['title'],
+                                'completed': task['completed'],
+                                'username': user['username']})
+
+    filename = argv[1] + '.json'
+    with open(filename, mode='w') as f:
+        dump(export, f)
