@@ -1,34 +1,14 @@
 #!/usr/bin/python3
-"""
-Module that extract data from api
-"""
-
+"""Returns to-do list information for a given employee ID."""
 import requests
-from sys import argv
-
+import sys
 
 if __name__ == "__main__":
+    url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(url + "users/{}".format(sys.argv[1])).json()
+    todos = requests.get(url + "todos", params={"userId": sys.argv[1]}).json()
 
-    emp_url = "https://jsonplaceholder.typicode.com/users/{}".format(argv[1])
-
-    emp_resp = requests.get(emp_url).json()
-
-    emp_name = emp_resp.get('EMPLOYEE_NAME')
-
-    payload = {'userId': {argv[1]}}
-    todo_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(
-               argv[1])
-
-    total_task = requests.get(todo_url).json()
-
-    task_done = 0
-    for task in total_task:
-        if task.get('completed'):
-            task_done += 1
-
-    print("Employee {} is done with tasks({}/{}):".
-          format(emp_name, task_done, len(total_task)))
-
-    for task in total_task:
-        if task.get('completed'):
-            print("\t {}".format(task.get('title')))
+    completed = [t.get("title") for t in todos if t.get("completed") is True]
+    print("Employee {} is done with tasks({}/{}):".format(
+        user.get("name"), len(completed), len(todos)))
+    [print("\t {}".format(c)) for c in completed]

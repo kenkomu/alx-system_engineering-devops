@@ -1,29 +1,18 @@
 #!/usr/bin/python3
-"""
-Module that extract data from api
-"""
+"""Exports to-do list information for a given employee ID to CSV format."""
 import csv
 import requests
-from sys import argv
-
+import sys
 
 if __name__ == "__main__":
-    emp_id = argv[1]
+    user_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(url + "users/{}".format(user_id)).json()
+    username = user.get("username")
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    emp_url = "https://jsonplaceholder.typicode.com/users/{}".format(emp_id)
-
-    emp_resp = requests.get(emp_url).json()
-
-    emp_name = emp_resp.get('username')
-
-    todo_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(
-                                                                        emp_id)
-
-    total_task = requests.get(todo_url).json()
-
-    with open('{}.csv'.format(emp_id), 'w') as csvfile:
-        csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
-
-        for task in total_task:
-            row = [emp_id, emp_name, task.get('completed'), task.get('title')]
-            csvwriter.writerow(row)
+    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [user_id, username, t.get("completed"), t.get("title")]
+         ) for t in todos]

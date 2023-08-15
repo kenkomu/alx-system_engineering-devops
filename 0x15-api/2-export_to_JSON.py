@@ -1,33 +1,19 @@
 #!/usr/bin/python3
-"""
-Module that extract data from api
-"""
+"""Exports to-do list information for a given employee ID to JSON format."""
 import json
 import requests
-from sys import argv
-
+import sys
 
 if __name__ == "__main__":
-    emp_id = argv[1]
-    filename = '{}.json'.format(emp_id)
-    emp_url = "https://jsonplaceholder.typicode.com/users/{}".format(emp_id)
-    emp_resp = requests.get(emp_url).json()
-    emp_name = emp_resp.get('username')
+    user_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(url + "users/{}".format(user_id)).json()
+    username = user.get("username")
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    todo_url = "https://jsonplaceholder.typicode.com/todos?userId={}".format(
-                                                                        emp_id)
-
-    total_task = requests.get(todo_url).json()
-
-    emp_task = []
-    for task in total_task:
-        row = {
-                    "task": task.get('title'),
-                    "completed": task.get('completed'),
-                    "username": emp_name
-                    }
-        emp_task.append(row)
-
-    with open(filename, 'w') as jsfile:
-        js_text = {emp_id: emp_task}
-        json.dump(js_text, jsfile)
+    with open("{}.json".format(user_id), "w") as jsonfile:
+        json.dump({user_id: [{
+                "task": t.get("title"),
+                "completed": t.get("completed"),
+                "username": username
+            } for t in todos]}, jsonfile)
