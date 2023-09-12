@@ -2,11 +2,11 @@
 
 ## Issue Summary
 
-From Thursday, May 21, 2023, 12:00 AM to Thursday, May 21, 2023, 12:30 AM the wordpress page was down after uploading to the web server. 1% of users were affected after this issue. The root cause was a bad configuration in the wp-settings.php.
+From Thursday, Aug 14, 2023, 12:00 AM to Thursday, Aug 14, 2023, 12:30 AM the wordpress page was down after uploading to the web server. 1% of users were affected after this issue. The root cause was a bad configuration in the wp-settings.php.
 
 ## Timeline
 
-On May 21, 2023, 12:00 AM: The DevOps Junior engineer updated the web server.
+On Aug 14, 2023, 12:00 AM: The DevOps Junior engineer updated the web server.
 
 At 12:05 AM: The DevOps Junior engineer detected the wordpress site was down.
 
