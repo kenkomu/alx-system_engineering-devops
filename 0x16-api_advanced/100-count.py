@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''Task 3 : Count it!'''
+'''Get ALL hot posts'''
 import pprint
 import re
 import requests
@@ -8,7 +8,7 @@ BASE_URL = 'http://reddit.com/r/{}/hot.json'
 
 
 def count_words(subreddit, word_list, hot_list=[], after=None):
-    '''function count_words : Get ALL hot posts'''
+    '''Get ALL hot posts'''
     headers = {'User-agent': 'Unix:0-subs:v1'}
     params = {'limit': 100}
     if isinstance(after, str):
@@ -31,7 +31,7 @@ def count_words(subreddit, word_list, hot_list=[], after=None):
 
 
 def print_results(word_list, hot_list):
-    '''function print_results :Prints request results'''
+    '''Prints request results'''
     count = {}
     for word in word_list:
         count[word] = 0
