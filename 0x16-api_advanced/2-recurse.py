@@ -1,28 +1,33 @@
 #!/usr/bin/python3
-'''Get ALL hot posts'''
-import pprint
+""" module for function to return top 10 hot posts of a given subreddit """
 import requests
+import sys
+after = None
 
-BASE_URL = 'http://reddit.com/r/{}/hot.json'
 
+def recurse(subreddit, hot_list=[]):
+    """     Args:
+        subreddit: subreddit name
+        hot_list: list of hot titles in subreddit
+        after: last hot_item appended to hot_list
+    Returns:
+        a list containing the titles of all hot articles for the subreddit
+        or None if queried subreddit is invalid """
+    global after
+    headers = {'User-Agent': 'xica369'}
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    parameters = {'after': after}
+    response = requests.get(url, headers=headers, allow_redirects=False,
+                            params=parameters)
 
-def recurse(subreddit, hot_list=[], after=None):
-    '''Get ALL hot posts'''
-    headers = {'User-agent': 'Unix:0-subs:v1'}
-    params = {'limit': 100}
-    if isinstance(after, str):
-        if after != "STOP":
-            params['after'] = after
-        else:
-            return hot_list
-    response = requests.get(BASE_URL.format(subreddit),
-                            headers=headers, params=params)
-    if response.status_code != 200:
-        return None
-    data = response.json().get('data', {})
-    after = data.get('after', 'STOP')
-    if not after:
-        after = "STOP"
-    hot_list = hot_list + [post.get('data', {}).get('title')
-                           for post in data.get('children', [])]
-    return recurse(subreddit, hot_list, after)
+    if response.status_code == 200:
+        next_ = response.json().get('data').get('after')
+        if next_ is not None:
+            after = next_
+            recurse(subreddit, hot_list)
+        list_titles = response.json().get('data').get('children')
+        for title_ in list_titles:
+            hot_list.append(title_.get('data').get('title'))
+        return hot_list
+    else:
+        return (None)
